@@ -11,7 +11,7 @@
   </head>
   <style>
     :root {
-      --text: #151515;
+      --text: #141414;
       --background: #fff;
       --transitionTime: 0.22s;
     }
@@ -42,33 +42,37 @@
     }
     #dark-toggle {
       position: absolute;
-      z-index: 0;
+      z-index: 1;
       top: 16px;
       right: 16px;
       display: flex;
       align-items: center;
       height: 40px;
-      width: 160px;
+      width: 170px;
       border-radius: 10000px;
       border: none;
-      background: #ddd;
       color: white;
       cursor: pointer;
       outline: none;
       justify-content: space-between;
-      padding: 0 16px;
+      padding: 0;
+      background: rgba(0, 0, 0, 0.1);
+    }
+    #dark-toggle[data-theme="DARK"] .label {
+      color: white;
     }
     #dark-toggle[data-theme="DARK"] .slider {
       transform: translateX(100%);
-    }
-    #dark-toggle .label {
-      z-index: 2;
-      color: black;
+      background-color: #34323d;
     }
     .label {
+      z-index: 2;
+      color: #141414;
       font-weight: 600;
+      flex-basis: 50%;
     }
     .slider {
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
       position: absolute;
       left: 0;
       right: 0;
@@ -77,20 +81,22 @@
       background: white;
       border-radius: inherit;
       z-index: 1;
+      transition: transform var(--transitionTime)
+        cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
   </style>
   <body>
     <h1>YES, YES HE DOES</h1>
     <button id="dark-toggle" data-theme="LIGHT">
-      <div class="label light-label">Light</div>
-      <div class="label dark-label">Dark</div>
+      <div class="label">Light</div>
+      <div class="label">Dark</div>
       <div class="slider"></div>
     </button>
   </body>
   <script>
     const colorModes = Object.freeze({ DARK: "DARK", LIGHT: "LIGHT" });
     const colors = Object.freeze({
-      DARK: "#151515",
+      DARK: "#141414",
       LIGHT: "#fff"
     });
     let mode = colorModes.LIGHT;
