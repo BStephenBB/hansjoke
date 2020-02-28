@@ -13,6 +13,7 @@
     :root {
       --text: #151515;
       --background: #fff;
+      --transitionTime: 0.22s;
     }
     html {
       height: 100%;
@@ -23,12 +24,14 @@
       justify-content: center;
       align-items: center;
       background-color: var(--background);
+      transition: background-color var(--transitionTime) ease;
     }
     h1 {
       color: var(--text);
       text-align: center;
       font-family: Montserrat, Arial;
       font-size: 3rem;
+      transition: color var(--transitionTime) ease;
     }
   </style>
   <body>
