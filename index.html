@@ -3,13 +3,17 @@
   <head>
     <meta charset="utf-8" />
     <title>Hans Sucks</title>
-    <meta name="description" content="The HTML5 Herald" />
+    <meta name="description" content="How good is Hans at tennis?" />
     <link
       href="https://fonts.googleapis.com/css?family=Montserrat:700&display=swap"
       rel="stylesheet"
     />
   </head>
   <style>
+    :root {
+      --text: #151515;
+      --background: #fff;
+    }
     html {
       height: 100%;
     }
@@ -18,8 +22,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      background-color: var(--background);
     }
     h1 {
+      color: var(--text);
       text-align: center;
       font-family: Montserrat, Arial;
       font-size: 3rem;
@@ -27,5 +33,27 @@
   </style>
   <body>
     <h1>YES, YES HE DOES</h1>
+    <button id="dark-toggle">dark mode</button>
   </body>
+  <script>
+    const colorModes = Object.freeze({ DARK: "DARK", LIGHT: "LIGHT" });
+    const colors = Object.freeze({
+      DARK: "#151515",
+      LIGHT: "#fff"
+    });
+    let mode = colorModes.LIGHT;
+    const toggle = document.querySelector("#dark-toggle");
+    toggle.addEventListener("click", () => {
+      const docStyle = document.documentElement.style;
+      if (mode === colorModes.LIGHT) {
+        mode = colorModes.DARK;
+        docStyle.setProperty("--text", colors.LIGHT);
+        docStyle.setProperty("--background", colors.DARK);
+      } else if (mode === colorModes.DARK) {
+        mode = colorModes.LIGHT;
+        docStyle.setProperty("--text", colors.DARK);
+        docStyle.setProperty("--background", colors.LIGHT);
+      }
+    });
+  </script>
 </html>
