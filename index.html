@@ -94,25 +94,52 @@
     </button>
   </body>
   <script>
+    // enums
     const colorModes = Object.freeze({ DARK: "DARK", LIGHT: "LIGHT" });
     const colors = Object.freeze({
       DARK: "#141414",
       LIGHT: "#fff"
     });
-    let mode = colorModes.LIGHT;
+
     const toggle = document.querySelector("#dark-toggle");
+    const docStyle = document.documentElement.style;
+
+    let mode;
+    const getColorMode = () => {
+      const storedTheme = window.localStorage.getItem("theme");
+      if (storedTheme) {
+        mode = storedTheme;
+        if (mode === colorModes.LIGHT) {
+          docStyle.setProperty("--text", colors.DARK);
+          docStyle.setProperty("--background", colors.LIGHT);
+          toggle.dataset.theme = colorModes.LIGHT;
+        } else if (mode === colorModes.DARK) {
+          docStyle.setProperty("--text", colors.LIGHT);
+          docStyle.setProperty("--background", colors.DARK);
+          toggle.dataset.theme = colorModes.DARK;
+        }
+      } else {
+        window.localStorage.setItem("theme", colorModes.LIGHT);
+        mode = colorModes.LIGHT;
+      }
+    };
+    getColorMode();
+
     toggle.addEventListener("click", () => {
-      const docStyle = document.documentElement.style;
       if (mode === colorModes.LIGHT) {
         mode = colorModes.DARK;
+        window.localStorage.setItem("theme", colorModes.DARK);
         docStyle.setProperty("--text", colors.LIGHT);
         docStyle.setProperty("--background", colors.DARK);
         toggle.dataset.theme = colorModes.DARK;
       } else if (mode === colorModes.DARK) {
         mode = colorModes.LIGHT;
+        window.localStorage.setItem("theme", colorModes.LIGHT);
         docStyle.setProperty("--text", colors.DARK);
         docStyle.setProperty("--background", colors.LIGHT);
         toggle.dataset.theme = colorModes.LIGHT;
+      } else {
+        throw new Error("Invalid color!");
       }
     });
   </script>
