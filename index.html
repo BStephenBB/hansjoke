@@ -20,9 +20,9 @@
       height: 100%;
     }
     * {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-        "Helvetica Neue", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+        'Helvetica Neue', sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
@@ -60,10 +60,10 @@
       padding: 0;
       background: rgba(0, 0, 0, 0.1);
     }
-    #dark-toggle[data-theme="DARK"] .label {
+    #dark-toggle[data-theme='DARK'] .label {
       color: white;
     }
-    #dark-toggle[data-theme="DARK"] .slider {
+    #dark-toggle[data-theme='DARK'] .slider {
       transform: translateX(100%);
       background-color: #34323d;
     }
@@ -97,51 +97,52 @@
   </body>
   <script>
     // enums
-    const colorModes = Object.freeze({ DARK: "DARK", LIGHT: "LIGHT" });
+    const colorModes = Object.freeze({ DARK: 'DARK', LIGHT: 'LIGHT' });
     const colors = Object.freeze({
-      DARK: "#141414",
-      LIGHT: "#fff"
+      DARK: '#141414',
+      LIGHT: '#fff',
     });
 
-    const toggle = document.querySelector("#dark-toggle");
+    const toggle = document.querySelector('#dark-toggle');
     const docStyle = document.documentElement.style;
 
     let mode;
     const getColorMode = () => {
-      const storedTheme = window.localStorage.getItem("theme");
+      const storedTheme = window.localStorage.getItem('theme');
       if (storedTheme) {
         mode = storedTheme;
         if (mode === colorModes.LIGHT) {
-          docStyle.setProperty("--text", colors.DARK);
-          docStyle.setProperty("--background", colors.LIGHT);
+          docStyle.setProperty('--text', colors.DARK);
+          docStyle.setProperty('--background', colors.LIGHT);
           toggle.dataset.theme = colorModes.LIGHT;
         } else if (mode === colorModes.DARK) {
-          docStyle.setProperty("--text", colors.LIGHT);
-          docStyle.setProperty("--background", colors.DARK);
+          docStyle.setProperty('--text', colors.LIGHT);
+          docStyle.setProperty('--background', colors.DARK);
           toggle.dataset.theme = colorModes.DARK;
         }
       } else {
-        window.localStorage.setItem("theme", colorModes.LIGHT);
+        window.localStorage.setItem('theme', colorModes.LIGHT);
         mode = colorModes.LIGHT;
       }
     };
     getColorMode();
 
-    toggle.addEventListener("click", () => {
+    toggle.addEventListener('click', () => {
+      window.navigator.vibrate(200);
       if (mode === colorModes.LIGHT) {
         mode = colorModes.DARK;
-        window.localStorage.setItem("theme", colorModes.DARK);
-        docStyle.setProperty("--text", colors.LIGHT);
-        docStyle.setProperty("--background", colors.DARK);
+        window.localStorage.setItem('theme', colorModes.DARK);
+        docStyle.setProperty('--text', colors.LIGHT);
+        docStyle.setProperty('--background', colors.DARK);
         toggle.dataset.theme = colorModes.DARK;
       } else if (mode === colorModes.DARK) {
         mode = colorModes.LIGHT;
-        window.localStorage.setItem("theme", colorModes.LIGHT);
-        docStyle.setProperty("--text", colors.DARK);
-        docStyle.setProperty("--background", colors.LIGHT);
+        window.localStorage.setItem('theme', colorModes.LIGHT);
+        docStyle.setProperty('--text', colors.DARK);
+        docStyle.setProperty('--background', colors.LIGHT);
         toggle.dataset.theme = colorModes.LIGHT;
       } else {
-        throw new Error("Invalid color!");
+        throw new Error('Invalid color!');
       }
     });
   </script>
